@@ -1,24 +1,49 @@
 --function run()
---    local waypoints = navigation.findWaypoints(256)
---    for i = 1, waypoints.n do
---        local waypoint = waypoints[i]
---        if waypoint.label == "grape_dock" then
---            local pos = waypoint.position
---            status("-> Base")
---            drone.move(pos[1], pos[2], pos[3])
---            status("LOOOL")
---        end
---    end
 --end
 --
 --register_coroutine(run, {})
-local waypoints = navigation.findWaypoints(256)
-for i = 1, waypoints.n do
-    local waypoint = waypoints[i]
-    if waypoint.label == "grape_dock" then
+
+local DOCK
+local ROWS
+
+function recalculate_waypoints()
+    local waypoints = navigation.findWaypoints(256)
+    local temp_rows
+
+    for i = 1, waypoints.n do
+        local waypoint = waypoints[i]
+
         local pos = waypoint.position
-        status("-> Base")
-        drone.move(pos[1], pos[2], pos[3])
-        status("LOOOL")
+        local converted_pos;
+        local label = waypoint.label
+
+        converted_pos.x = pos[1]
+        converted_pos.y = pos[2]
+        converted_pos.z = pos[3]
+
+        if label == "grape_dock" then
+            DOCK = converted_pos;
+        end
+
+        if label.startswith("grape_waypoint_") then
+            table.insert(temp_rows, string.gsub(label, "grape_waypoint_", ""), converted_pos)
+        end
+
+        ROWS = temp_rows
+
     end
 end
+
+function dock()
+    status("-> Dock")
+    drone.move(DOCK.x, DOCK.y, DOCK.z)
+end
+
+recalculate_waypoints()
+
+if not DOCK then
+    status("No Dock")
+    error("Dock not found, make sure to create a waypoint named grape_dock in 256 range.")
+end
+
+dock()
