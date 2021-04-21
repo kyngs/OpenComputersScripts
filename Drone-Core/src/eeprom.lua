@@ -19,7 +19,7 @@ end
 
 status("Loading")
 
-local repo = "https://raw.githubusercontent.com/kyngs/OpenComputersScripts/Drone-Core/src/"
+local repo = "https://raw.githubusercontent.com/kyngs/OpenComputersScripts/master/Drone-Core/src/"
 internet = part("internet")
 
 local coroutines = {}
