@@ -4,4 +4,6 @@ function run()
         sleep(100)
     end
 end
+status("TEEEST")
+sleep(2000)
 register_coroutine(run, {})
