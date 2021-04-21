@@ -4,7 +4,10 @@ function run()
             goto continue
         end
         if v["label"] == "grape_dock" then
-            status(v["position"][2])
+            local pos = v["position"]
+            status("-> Base")
+            drone.move(pos[1], pos[2], pos[3])
+            break
         end
         ::continue::
     end
