@@ -4,7 +4,7 @@
 --register_coroutine(run, {})
 
 local DOCK
-local ROWS
+local ROWS = {}
 
 function recalculate_waypoints()
     local waypoints = navigation.findWaypoints(256)
@@ -14,7 +14,7 @@ function recalculate_waypoints()
         local waypoint = waypoints[i]
 
         local pos = waypoint.position
-        local converted_pos;
+        local converted_pos = {};
         local label = waypoint.label
 
         converted_pos.x = pos[1]
