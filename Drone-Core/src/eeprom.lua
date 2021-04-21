@@ -12,14 +12,14 @@ function sleep(timeout)
 end
 
 function status(status)
-    drone.setStatusText("")
+    drone.setStatusText(" ")
     drone.setStatusText(status)
     computer.beep(200)
 end
 
 status("Loading")
 
-local repo = "https://raw.githubusercontent.com/kyngs/OpenComputersScripts/Drone-Core/"
+local repo = "https://raw.githubusercontent.com/kyngs/OpenComputersScripts/Drone-Core/src/"
 internet = part("internet")
 
 local coroutines = {}
