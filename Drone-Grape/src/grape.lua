@@ -58,5 +58,5 @@ dock()
 
 while true do
     recalculate_waypoints()
-    status(computer_api.energy())
+    status(computer.energy())
 end
