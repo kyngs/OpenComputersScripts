@@ -8,7 +8,7 @@ local ROWS = {}
 
 function recalculate_waypoints()
     local waypoints = navigation.findWaypoints(256)
-    local temp_rows
+    local temp_rows = {}
 
     for i = 1, waypoints.n do
         local waypoint = waypoints[i]
