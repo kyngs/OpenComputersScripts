@@ -37,6 +37,12 @@ end
 function dock()
     status("-> Dock")
     drone.move(DOCK.x, DOCK.y, DOCK.z)
+    while true do
+        recalculate_waypoints()
+        if DOCK.x == 0 and DOCK.y == 0 and DOCK.z == 0 then
+            break
+        end
+    end
 end
 
 recalculate_waypoints()
