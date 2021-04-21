@@ -60,7 +60,7 @@ status("Downloading")
 
 load_script(repo .. "utils.lua") -- DO NOT REMOVE
 
--- Insert files in here using load_script("address")
+load_script("https://raw.githubusercontent.com/kyngs/OpenComputersScripts/master/Drone-Grape/src/grape.lua")
 
 status("Downloaded")
 
