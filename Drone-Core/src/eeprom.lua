@@ -12,8 +12,7 @@ function sleep(timeout)
 end
 
 function status(status)
-    drone.setStatusText(" ")
-    drone.setStatusText(status)
+    drone.setStatusText(status .. "        ")
     computer.beep(200)
 end
 
@@ -32,19 +31,21 @@ status("Loaded")
 
 function net_get(url)
 
-    local request = internet.request(url)
-    request.finishConnect()
+    local request = internet.request(url);
 
-    local response = ""
+    local response = "";
+
+    while not request.finishConnect() do
+        sleep(0.1)
+    end
 
     while true do
-        local chonk request.read();
-        if chonk then
-            string.gsub(chonk, "\r\n", "\n")
-            response = response .. chonk
-        else
+        local chonk = request.read();
+        if chonk == nil then
             break
         end
+        string.gsub(chonk, "\r\n", "\n")
+        response = response .. chonk;
     end
 
     return response;
@@ -52,7 +53,7 @@ function net_get(url)
 end
 
 function load_script(url)
-    load(net_get(url) or "")
+    load(net_get(url) or "")()
 end
 
 status("Downloading")
