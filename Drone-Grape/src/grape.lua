@@ -53,3 +53,10 @@ if not DOCK then
 end
 
 dock()
+
+-- Main loop
+
+while true do
+    recalculate_waypoints()
+    status(computer_api.energy())
+end
