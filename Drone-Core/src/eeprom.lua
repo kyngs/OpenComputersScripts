@@ -25,7 +25,7 @@ internet = part("internet")
 local coroutines = {}
 
 function register_coroutine(func, events)
-    table.insert(coroutines,{coroutine = coroutine.create(func), events = events})
+    table.insert(coroutines,{thread = coroutine.create(func), events = events})
 end
 
 status("Loaded")
