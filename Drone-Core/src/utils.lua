@@ -1,5 +1,7 @@
 function run()
-    computer.beep(100)
-    sleep(100)
+    while (true) do
+        computer.beep(100)
+        sleep(100)
+    end
 end
 register_coroutine(run, {})
