@@ -1,15 +1,13 @@
 function run()
-    for k, v in pairs(navigation.findWaypoints(256)) do
-        if not v then
-            goto continue
-        end
-        if v["label"] == "grape_dock" then
+    local waypoints = navigation.findWaypoints(256)
+    for i = 1, waypoints.n do
+        local waypoint = waypoints[i]
+        if waypoint.label == "grape_dock" then
             local pos = v["position"]
             status("-> Base")
             drone.move(pos[1], pos[2], pos[3])
-            break
+            status("LOOOL")
         end
-        ::continue::
     end
 end
 
