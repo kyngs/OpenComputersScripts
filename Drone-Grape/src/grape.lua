@@ -3,7 +3,7 @@ function run()
     for i = 1, waypoints.n do
         local waypoint = waypoints[i]
         if waypoint.label == "grape_dock" then
-            local pos = v["position"]
+            local pos = waypoint.position
             status("-> Base")
             drone.move(pos[1], pos[2], pos[3])
             status("LOOOL")
