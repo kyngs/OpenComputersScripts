@@ -71,14 +71,14 @@ status("Running")
 while true do
     local event = {computer.pullSignal(0.001)}
 
-    for index, coroutine in pairs(coroutines) do
-        local thread = coroutine["thread"]
-        local status = coroutine.status(thread)
-        if (status == "dead") then
+    for index, coro in pairs(coroutines) do
+        local thread = coro["thread"]
+        local coroutine_status = coroutine.status(thread)
+        if (coroutine_status == "dead") then
             table.remove(coroutines, index)
             status("Coro " .. index .. " crash")
         end
-        if (coroutine["event"]) then
+        if (coro["event"]) then
             if event then
                 coroutine.resume(thread, table.unpack(event))
             end
