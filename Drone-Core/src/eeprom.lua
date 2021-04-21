@@ -12,7 +12,8 @@ function sleep(timeout)
 end
 
 function status(status)
-    drone.setStatusText(status);
+    drone.setStatusText("")
+    drone.setStatusText(status)
     computer.beep(200)
 end
 
