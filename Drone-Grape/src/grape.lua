@@ -90,6 +90,9 @@ status("Working")
 
 while true do
 
+    status(tostring(start_waypoint_index))
+    status(tostring(end_waypoint_index))
+
     recalculate_waypoints()
     local docked = docked()
     local charge = get_charge_percent();
