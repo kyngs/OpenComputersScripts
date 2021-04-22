@@ -71,10 +71,6 @@ while true do
     local docked = docked()
     local charge = get_charge_percent();
 
-    status(tostring(charge))
-    sleep(2)
-    status(tostring(get_total_inventory_space_occupied()))
-
     if docked then
         if not charge >= 95 or not get_total_inventory_space_occupied() == 0 then
             goto end_dock
