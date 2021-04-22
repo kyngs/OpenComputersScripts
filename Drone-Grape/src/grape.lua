@@ -28,8 +28,9 @@ function recalculate_waypoints()
 
         if starts_with(label,"grape_waypoint_") then
             table.insert(temp_rows, tonumber(string.gsub(label, "grape_waypoint_", "")), converted_pos)
-            status("LOOOL")
         end
+
+        status(label)
 
     end
 
