@@ -12,7 +12,7 @@ function sleep(timeout)
 end
 
 function status(status)
-    drone.setStatusText(status .. "        ")
+    drone.setStatusText(tostring(status) .. "        ")
     computer.beep(200)
 end
 
