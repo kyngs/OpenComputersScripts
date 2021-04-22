@@ -69,7 +69,7 @@ while true do
 
     recalculate_waypoints()
     local docked = docked()
-    status(is_in(DOCK))
+    status(tostring(is_in(DOCK)))
     sleep(5)
     local charge = get_charge_percent();
 
