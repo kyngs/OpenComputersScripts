@@ -125,6 +125,8 @@ while true do
         goto continue;
     end
 
+    drone.move(end_waypoint.x, end_waypoint.y, end_waypoint.z)
+
     while true do
         recalculate_waypoints()
         end_waypoint = WAYPOINTS[end_waypoint_index]
