@@ -52,7 +52,7 @@ function docked()
 end
 
 function is_in(location)
-    return location.x == 0 and location.y == 0 and location.x == 0
+    return (location.x == 0) and (location.y == 0) and (location.x == 0)
 end
 
 function calculate_right_waypoint(location)
@@ -90,9 +90,6 @@ status("Working")
 
 while true do
 
-    status("start" .. tostring(start_waypoint_index))
-    status("end" .. tostring(end_waypoint_index))
-
     recalculate_waypoints()
     local docked = docked()
     local charge = get_charge_percent();
@@ -116,6 +113,7 @@ while true do
 
     while true do
         recalculate_waypoints()
+        sleep(0.1)
         start_waypoint = WAYPOINTS[start_waypoint_index]
         if (is_in(start_waypoint)) then break end
     end
@@ -133,6 +131,7 @@ while true do
 
     while true do
         recalculate_waypoints()
+        sleep(0.1)
         end_waypoint = WAYPOINTS[end_waypoint_index]
         if (is_in(end_waypoint)) then break end
     end
