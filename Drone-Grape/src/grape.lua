@@ -88,7 +88,11 @@ status("Working")
 
 -- Main loop
 
+local num = 1;
+
 while true do
+
+    status("loop " .. tostring(num))
 
     recalculate_waypoints()
     local docked = docked()
@@ -139,4 +143,5 @@ while true do
     bump_target()
 
     ::continue::
+    num = num + 1;
 end
