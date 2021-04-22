@@ -90,8 +90,8 @@ status("Working")
 
 while true do
 
-    status(tostring(start_waypoint_index))
-    status(tostring(end_waypoint_index))
+    status("start" .. tostring(start_waypoint_index))
+    status("end" .. tostring(end_waypoint_index))
 
     recalculate_waypoints()
     local docked = docked()
