@@ -70,14 +70,13 @@ while true do
     recalculate_waypoints()
     local docked = docked()
     local charge = get_charge_percent();
-    status(get_total_inventory_space_occupied())
-    sleep(2)
+
     if docked then
-        if not charge >= 95 or not get_total_inventory_space_occupied() == 0 then
+        if (not (charge >= 95)) or (not (get_total_inventory_space_occupied() == 0)) then
             goto end_dock
         end
     else
-        if charge <= 10 or get_total_inventory_space_remaining() == 0 then
+        if (charge <= 10) or (get_total_inventory_space_remaining() == 0) then
             dock()
             goto continue
         end
