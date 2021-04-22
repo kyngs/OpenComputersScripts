@@ -1,4 +1,5 @@
 --function run()
+--
 --end
 --
 --register_coroutine(run, {})
@@ -29,7 +30,7 @@ function recalculate_waypoints()
             table.insert(temp_rows, tonumber(string.gsub(label, "grape_waypoint_", "")), converted_pos)
         end
 
-        ROWS = temp_rows
+        WAYPOINTS = temp_rows
 
     end
 end
