@@ -28,8 +28,7 @@ function recalculate_waypoints()
 
         if starts_with(label,"grape_waypoint_") then
             local str, _ = label:gsub("grape_waypoint_", "");
-            status(str)
-            --table.insert(temp_rows, tonumber(string.gsub(label, "grape_waypoint_", "")[1]), converted_pos)
+            table.insert(temp_rows, tonumber(str), converted_pos)
         end
 
     end
