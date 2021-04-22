@@ -2,7 +2,7 @@ navigation = part("navigation")
 nav = navigation
 
 function starts_with(text, prefix)
-    return string.sub(text, string.len(prefix)) == prefix
+    return string.sub(text,1,string.len(prefix))==prefix
 end
 
 function get_charge_percent()

@@ -30,8 +30,6 @@ function recalculate_waypoints()
             table.insert(temp_rows, tonumber(string.gsub(label, "grape_waypoint_", "")), converted_pos)
         end
 
-        status(label)
-
     end
 
     WAYPOINTS = temp_rows
