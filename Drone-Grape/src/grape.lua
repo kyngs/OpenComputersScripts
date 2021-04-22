@@ -118,6 +118,8 @@ while true do
         if (is_in(start_waypoint)) then break end
     end
 
+    recalculate_waypoints()
+
     local end_waypoint = WAYPOINTS[end_waypoint_index]
 
     if not calculate_right_waypoint(end_waypoint) then
@@ -132,6 +134,8 @@ while true do
         end_waypoint = WAYPOINTS[end_waypoint_index]
         if (is_in(end_waypoint)) then break end
     end
+
+    bump_target()
 
     ::continue::
 end
