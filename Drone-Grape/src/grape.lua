@@ -6,6 +6,8 @@
 
 local DOCK
 local WAYPOINTS = {}
+local start_waypoint_index = 1;
+local end_waypoint_index = 2;
 
 function recalculate_waypoints()
     local waypoints = navigation.findWaypoints(256)
@@ -53,6 +55,25 @@ function is_in(location)
     return location.x == 0 and location.y == 0 and location.x == 0
 end
 
+function calculate_right_waypoint(location)
+    if not (location.y == 0) then return false end
+    return (location.x * location.z) == 0
+end
+
+function reset_start()
+    start_waypoint_index = 1;
+    end_waypoint_index = 2;
+end
+
+function bump_target()
+    if (end_waypoint_index >= #WAYPOINTS) then
+        reset_start()
+    else
+        start_waypoint_index = start_waypoint_index + 1;
+        end_waypoint_index = end_waypoint_index + 1;
+    end
+end
+
 recalculate_waypoints()
 
 if not DOCK then
@@ -62,10 +83,9 @@ end
 
 dock()
 
--- Main loop
+status("Working")
 
-local start_waypoint_index = 1;
-local end_waypoint_index = 2;
+-- Main loop
 
 while true do
 
@@ -90,14 +110,25 @@ while true do
 
     local start_waypoint = WAYPOINTS[start_waypoint_index]
 
-    status("-> Start")
-
     drone.move(start_waypoint.x, start_waypoint.y, start_waypoint.z)
 
     while true do
         recalculate_waypoints()
         start_waypoint = WAYPOINTS[start_waypoint_index]
         if (is_in(start_waypoint)) then break end
+    end
+
+    local end_waypoint = WAYPOINTS[end_waypoint_index]
+
+    if not calculate_right_waypoint(end_waypoint) then
+        bump_target()
+        goto continue;
+    end
+
+    while true do
+        recalculate_waypoints()
+        end_waypoint = WAYPOINTS[end_waypoint_index]
+        if (is_in(end_waypoint)) then break end
     end
 
     ::continue::
