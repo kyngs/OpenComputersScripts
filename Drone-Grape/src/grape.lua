@@ -85,6 +85,9 @@ while true do
 
     ::end_dock::
 
+    status(#WAYPOINTS)
+    sleep(2)
+
     local start_waypoint = WAYPOINTS[start_waypoint_index]
 
     status("-> Start")
