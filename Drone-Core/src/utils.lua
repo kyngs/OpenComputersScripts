@@ -24,3 +24,4 @@ function get_total_inventory_space_occupied()
     end
     return total_space;
 end
+
