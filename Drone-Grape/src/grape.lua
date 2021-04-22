@@ -67,6 +67,7 @@ end
 
 function bump_target()
     if (end_waypoint_index >= #WAYPOINTS) then
+        status("RESET")
         reset_start()
     else
         start_waypoint_index = start_waypoint_index + 1;
@@ -105,8 +106,6 @@ while true do
     end
 
     ::end_dock::
-
-    sleep(2)
 
     local start_waypoint = WAYPOINTS[start_waypoint_index]
 
