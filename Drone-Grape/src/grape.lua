@@ -4,7 +4,7 @@
 --register_coroutine(run, {})
 
 local DOCK
-local ROWS = {}
+local WAYPOINTS = {}
 
 function recalculate_waypoints()
     local waypoints = navigation.findWaypoints(256)
@@ -26,7 +26,7 @@ function recalculate_waypoints()
         end
 
         if starts_with(label,"grape_waypoint_") then
-            table.insert(temp_rows, string.gsub(label, "grape_waypoint_", ""), converted_pos)
+            table.insert(temp_rows, tonumber(string.gsub(label, "grape_waypoint_", "")), converted_pos)
         end
 
         ROWS = temp_rows
@@ -39,10 +39,16 @@ function dock()
     drone.move(DOCK.x, DOCK.y, DOCK.z)
     while true do
         recalculate_waypoints()
-        if DOCK.x == 0 and DOCK.y == 0 and DOCK.z == 0 then
-            break
-        end
+        if docked() then break end
     end
+end
+
+function docked()
+    return is_in(DOCK)
+end
+
+function is_in(location)
+    return location.x == 0 and location.y == 0 and location.x == 0
 end
 
 recalculate_waypoints()
@@ -56,7 +62,39 @@ dock()
 
 -- Main loop
 
+local start_waypoint_index = 1;
+local end_waypoint_index = 2;
+
 while true do
+
     recalculate_waypoints()
-    status(computer.energy())
+    local docked = docked()
+    local charge = get_charge_percent();
+
+    if (docked()) then
+        if not charge >= 95 or not get_total_inventory_space_occupied() == 0 then
+            goto end_dock
+        end
+    else
+        if charge <= 10 or get_total_inventory_space_remaining() == 0 then
+            dock()
+            goto continue
+        end
+    end
+
+    ::end_dock::
+
+    local start_waypoint = WAYPOINTS[start_waypoint_index]
+
+    status("-> Start")
+
+    drone.move(start_waypoint.x, start_waypoint.y, start_waypoint.z)
+
+    while true do
+        recalculate_waypoints()
+        start_waypoint = WAYPOINTS[start_waypoint_index]
+        if (is_in(start_waypoint)) then break end
+    end
+
+    ::continue::
 end
