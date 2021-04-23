@@ -43,6 +43,7 @@ function is_at(location)
 end
 
 function dock()
+    status("FML")
     drone.move(0, 3, 0)
     sleep(1)
     calculate_waypoints()
