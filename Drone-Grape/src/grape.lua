@@ -32,5 +32,6 @@ function calculate_waypoints()
     WAYPOINTS = temp_rows
 end
 
+calculate_waypoints()
 status(#WAYPOINTS)
 
