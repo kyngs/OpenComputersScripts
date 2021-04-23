@@ -71,6 +71,7 @@ while true do
             status("Working")
             goto stop_dock
         end
+        goto continue
     else
         if (get_total_inventory_space_remaining() == 0) or (get_charge_percent() <= 10) then
             dock(1)
