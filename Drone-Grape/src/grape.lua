@@ -33,7 +33,7 @@ end
 
 function is_at(location, offset)
     calculate_waypoints()
-    return (location.x == 0) and (location.y == 0) and (location.z == 0)
+    return (location.x == 0) and ((location.y + offset) == 0) and (location.z == 0)
 end
 
 function is_at(location)
