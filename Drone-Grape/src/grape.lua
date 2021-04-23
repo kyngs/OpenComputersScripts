@@ -31,16 +31,20 @@ function calculate_waypoints()
     WAYPOINTS = temp_rows
 end
 
-function is_at(location)
+function is_at(location, offset)
     calculate_waypoints()
     return (location.x == 0) and (location.y == 0) and (location.z == 0)
+end
+
+function is_at(location)
+    return is_at(location, 0)
 end
 
 function dock(offset)
     status("Docking")
     calculate_waypoints()
     drone.move(DOCK.x, (DOCK.y + offset), DOCK.z)
-    repeat until is_at(DOCK)
+    repeat until is_at(DOCK, offset)
     if offset >= 1 then dock(0) end
     status("Docked")
 end
