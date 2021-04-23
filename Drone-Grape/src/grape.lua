@@ -1,7 +1,6 @@
 local DOCK
 local WAYPOINTS = {}
-local start_waypoint_index = 1;
-local end_waypoint_index = 2;
+local target_waypoint_index = 1;
 
 function calculate_waypoints()
     local waypoints = navigation.findWaypoints(256)
@@ -47,12 +46,18 @@ function dock()
 end
 
 function travel_to_waypoint(index)
-    status("Traveling")
     calculate_waypoints()
     local waypoint = WAYPOINTS[index];
     drone.move(waypoint.x, waypoint.y, waypoint.z)
     repeat until is_at(WAYPOINTS[index])
-    sleep(1)
+end
+
+function bump_index()
+    if (target_waypoint_index >= #WAYPOINTS) then
+        target_waypoint_index = 1
+    else
+        target_waypoint_index = target_waypoint_index + 1
+    end
 end
 
 dock()
@@ -64,15 +69,16 @@ while true do
         end
     else
         if (get_total_inventory_space_remaining() == 0) or (get_charge_percent() <= 10) then
-            status("oh no")
+            dock()
             goto continue
         end
     end
 
     ::stop_dock::
 
-    travel_to_waypoint(start_waypoint_index)
-    start_waypoint_index = start_waypoint_index + 1
+
+    travel_to_waypoint(target_waypoint_index)
+    bump_index()
 
     ::continue::
 end
