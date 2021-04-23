@@ -39,7 +39,7 @@ end
 function dock(offset)
     status("Docking")
     calculate_waypoints()
-    drone.move(DOCK.x, DOCK.y, DOCK.z)
+    drone.move(DOCK.x, (DOCK.y + offset), DOCK.z)
     repeat until is_at(DOCK)
     if offset >= 1 then dock(0) end
     status("Docked")
@@ -71,6 +71,7 @@ while true do
             status("Working")
             goto stop_dock
         end
+        status("Docked")
         goto continue
     else
         if (get_total_inventory_space_remaining() == 0) or (get_charge_percent() <= 10) then
