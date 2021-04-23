@@ -50,6 +50,8 @@ function dock(offset)
     repeat until is_at(DOCK, true) do
         sleep(0.1)
     end
+    status("LOOOL")
+    sleep(1)
     if offset >= 1 then dock(0) end
     status("Docked")
 end
