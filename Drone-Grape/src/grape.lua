@@ -65,14 +65,13 @@ dock(1)
 status("Working")
 
 while true do
-    if (is_at(DOCK)) then
-        status("DOOC")
+    calculate_waypoints()
+    if is_at(DOCK) then
         if (get_total_inventory_space_occupied() <= 0) and (get_charge_percent() >= 95) then
             status("Working")
             goto stop_dock
         end
     else
-        status("NOO_DOC")
         if (get_total_inventory_space_remaining() == 0) or (get_charge_percent() <= 10) then
             dock(1)
             goto continue
