@@ -43,6 +43,9 @@ end
 function dock(offset)
     status("Docking")
     calculate_waypoints()
+    drone.move(0, (DOCK.y + offset), 0)
+    sleep(1)
+    calculate_waypoints()
     drone.move(DOCK.x, (DOCK.y + offset), DOCK.z)
     repeat until is_at(DOCK, offset)
     if offset >= 1 then dock(0) end
