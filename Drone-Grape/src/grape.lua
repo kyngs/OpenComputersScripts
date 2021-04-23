@@ -36,12 +36,12 @@ function is_at(location)
     return (location.x == 0) and (location.y == 0) and (location.z == 0)
 end
 
-function dock()
+function dock(offset)
     status("Docking")
     calculate_waypoints()
     drone.move(DOCK.x, DOCK.y, DOCK.z)
     repeat until is_at(DOCK)
-    sleep(1)
+    if offset >= 1 then dock(0) end
     status("Docked")
 end
 
@@ -60,22 +60,24 @@ function bump_index()
     end
 end
 
-dock()
+dock(1)
+
+status("Working")
 
 while true do
     if (is_at(DOCK)) then
         if (get_total_inventory_space_occupied() <= 0) and (get_charge_percent() >= 95) then
+            status("Working")
             goto stop_dock
         end
     else
         if (get_total_inventory_space_remaining() == 0) or (get_charge_percent() <= 10) then
-            dock()
+            dock(1)
             goto continue
         end
     end
 
     ::stop_dock::
-
 
     travel_to_waypoint(target_waypoint_index)
     bump_index()
