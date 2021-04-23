@@ -33,7 +33,9 @@ end
 
 function is_at(location, ignoreY)
     calculate_waypoints()
-    if ignoreY then return (location.x == 0) and (location.z == 0) end
+    if ignoreY then
+        return (location.x == 0) and (location.z == 0)
+    end
 
     return (location.x == 0) and (location.y == 0) and (location.z == 0)
 end
@@ -43,14 +45,13 @@ function is_at(location)
 end
 
 function dock()
-    status("FML")
     drone.move(0, 3, 0)
     sleep(1)
     calculate_waypoints()
     drone.move(DOCK.x, 0, DOCK.z)
     repeat until is_at(DOCK, true) do sleep(0.1) end
     calculate_waypoints()
-    drone.move(DOCK.x, DOCK.y, DOCK.z)
+    drone.move(0, -3, 0)
     repeat until is_at(DOCK, false) do sleep(0.1) end
 end
 
