@@ -49,6 +49,7 @@ function dock()
     sleep(1)
     calculate_waypoints()
     drone.move(DOCK.x, 0, DOCK.z)
+    status("HMM")
     repeat until is_at(DOCK, true) do
         status("LOL")
         sleep(0.1)
