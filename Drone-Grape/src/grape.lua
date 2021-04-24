@@ -33,7 +33,7 @@ end
 
 function is_at(location, ignoreY)
     calculate_waypoints()
-    if ignoreY then
+    if ignoreY == true then
         return (location.x == 0) and (location.z == 0)
     end
 
