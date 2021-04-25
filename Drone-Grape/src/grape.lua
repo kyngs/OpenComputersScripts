@@ -49,7 +49,7 @@ function dock()
     calculate_waypoints()
     drone.move(DOCK.x, 0, DOCK.z)
     repeat until flying_at(DOCK)
-    drone.move(0, -3, 0)
+    drone.move(0, DOCK.y, 0)
     repeat until is_at(DOCK)
 end
 
@@ -80,11 +80,11 @@ while true do
             goto stop_dock
         end
         status("Docked")
-        goto continue
+        goto main_continue
     else
         if (get_total_inventory_space_remaining() == 0) or (get_charge_percent() <= 10) then
             dock()
-            goto continue
+            goto main_continue
         end
     end
 
@@ -92,6 +92,39 @@ while true do
 
     travel_to_waypoint(target_waypoint_index)
     bump_index()
+    calculate_waypoints()
 
-    ::continue::
+    local direction_to_move = {}
+
+    -- Forgive me please
+    if (WAYPOINTS[target_waypoint_index].x >= 1) then direction_to_move.x = 1 end
+    if (WAYPOINTS[target_waypoint_index].z >= 1) then direction_to_move.z = 1 end
+    if (WAYPOINTS[target_waypoint_index].x <= -1) then direction_to_move.x = -1 end
+    if (WAYPOINTS[target_waypoint_index].z <= -1) then direction_to_move.z = -1 end
+
+    while true do
+
+        local directions = {}
+
+        for i = 2, 5 do
+            local block, type = drone.detect(i)
+            if type == "passable" then
+                table.insert(directions, i);
+            end
+        end
+
+        if (#directions == 0) then
+            break
+        end
+
+        for _, v in pairs(directions) do
+            drone.use(v)
+        end
+
+        drone.move(direction_to_move.x, 0, direction_to_move.z)
+
+        ::loop_continue::
+    end
+
+    ::main_continue::
 end
