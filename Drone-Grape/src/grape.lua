@@ -33,11 +33,13 @@ end
 
 function is_at(location)
     calculate_waypoints()
+    sleep(0.1)
     return (location.x == 0) and (location.y == 0) and (location.z == 0)
 end
 
 function flying_at(location)
     calculate_waypoints()
+    sleep(0.1)
     return (location.x == 0) and (location.z == 0)
 end
 
@@ -48,7 +50,7 @@ function dock()
     drone.move(DOCK.x, 0, DOCK.z)
     repeat until flying_at(DOCK)
     drone.move(0, -3, 0)
-    repeat until is_at(DOCK) do sleep(0.1) end
+    repeat until is_at(DOCK)
 end
 
 function travel_to_waypoint(index)
