@@ -102,7 +102,6 @@ while true do
     if (WAYPOINTS[target_waypoint_index].x <= -1) then direction_to_move.x = -1 end
     if (WAYPOINTS[target_waypoint_index].z <= -1) then direction_to_move.z = -1 end
 
-    status("Farming")
     while true do
 
         local directions = {}
@@ -126,6 +125,8 @@ while true do
 
         ::loop_continue::
     end
+
+    status("end loop lol")
 
     ::main_continue::
 end
